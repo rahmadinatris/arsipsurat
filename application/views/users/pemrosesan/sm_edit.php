@@ -3,8 +3,9 @@
 <script>
 
 $( function() {
-  $( "#tgl_surat" ).datepicker();
+  $( "#tgl_surat" ).datepicker({ dateFormat: 'yy-mm-dd' });
 } );
+
 
 </script>
 <script type="text/javascript" src="assets/js/core/app.js"></script>
@@ -61,14 +62,21 @@ $( function() {
                         </div>
                       </div>
                     </div> -->
-  <input type="hidden" name="id_sm" id="id_sm" class="form-control" placeholder="" value="<?= $query->id_sm;  ?>" required>
+  <!-- <input type="hidden" name="id_sm" id="id_sm" class="form-control" placeholder="" value="<?= $query->id_sm;  ?>" required>
                     <div class="form-group">
                       <label class="control-label col-lg-3">No. Surat</label>
                       <div class="col-lg-5">
     												<input type="text" name="no_asalx" id="no_asalx" class="form-control" placeholder="" value="<?= $query->no_surat;  ?>" required readonly>
                             <input type="hidden" name="no_asal" id="no_asal" class="form-control" placeholder="" value="<?= $query->no_surat;  ?>" required>
     									</div>
-                      </div>
+                      </div> -->
+                      <input type="hidden" name="id_sm" id="id_sm" class="form-control" placeholder="" value="<?= $query->id_sm;  ?>" required>
+                      <div class="form-group">
+                      <label class="control-label col-lg-3">No. Surat</label>
+                      <div class="col-lg-5">
+    												<input type="text" name="no_surat" id="no_surat" class="form-control" value="<?= $query->no_surat;  ?>" placeholder="">
+    									</div>
+                    </div>
                    
                     <div class="form-group">
                       <label class="control-label col-lg-3">Asal Surat</label>
@@ -93,7 +101,7 @@ $( function() {
                      <div class="col-lg-4">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                          <input type="text" name="tgl_surat" class="form-control daterange-single" id="tgl_surat"value="<?= $query->tgl_surat;  ?>" maxlength="10" required placeholder="Masukkan Tanggal">
+                          <input type="text" name="tgl_surat" id="tgl_surat" class="form-control daterange-single" value="<?= $query->tgl_surat;  ?>" maxlength="10" required placeholder="Masukkan Tanggal">
                         </div>
                       </div>
                     </div>
@@ -120,7 +128,7 @@ $( function() {
 
                     <hr>
                     
-                    <a href="users/sm" class="btn btn-default"><< Kembali</a>
+                    <a href="users/get_sm" class="btn btn-default"><< Kembali</a>
                     <button type="submit" class="btn btn-primary" style="float:right;">Kirim</button>
                 </form>
 

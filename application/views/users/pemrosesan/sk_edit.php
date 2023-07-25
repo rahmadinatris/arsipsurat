@@ -3,7 +3,7 @@
 <script>
 
 $( function() {
-  $( "#tgl_surat" ).datepicker();
+  $( "#tgl_surat" ).datepicker({ dateFormat: "yy-mm-dd"});
 } );
 
 </script>
@@ -61,14 +61,16 @@ $( function() {
                         </div>
                       </div>
                     </div> -->
-  <input type="hidden" name="id_sk" id="id_sk" class="form-control" placeholder="" value="<?= $query->id_sk;  ?>" required>
-                    <div class="form-group">
+
+                    <input type="hidden" name="id_sk" id="id_sk" class="form-control" placeholder="" value="<?= $query->id_sk;  ?>" required>
+                    
+                     <div class="form-group">
                       <label class="control-label col-lg-3">No. Surat</label>
-                      <div class="col-lg-5">
-    												<input type="text" name="no_asalx" id="no_asalx" class="form-control" placeholder="" value="<?= $query->no_surat;  ?>" required readonly>
-                            <input type="hidden" name="no_asal" id="no_asal" class="form-control" placeholder="" value="<?= $query->no_surat;  ?>" required>
+                      <div class="col-lg-9">
+    												<input type="text" name="no_surat" id="no_surat" class="form-control" value="<?= $query->no_surat;  ?>" placeholder="">
     									</div>
-                      </div>
+                    </div>
+                   
                    
                     <div class="form-group">
                       <label class="control-label col-lg-3">Tujuan Surat</label>
@@ -120,7 +122,7 @@ $( function() {
 
                     <hr>
                     
-                    <a href="users/sk" class="btn btn-default"><< Kembali</a>
+                    <a href="users/get_sk" class="btn btn-default"><< Kembali</a>
                     <button type="submit" class="btn btn-primary" style="float:right;">Kirim</button>
                 </form>
 

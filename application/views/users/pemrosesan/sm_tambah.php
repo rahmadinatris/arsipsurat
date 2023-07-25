@@ -3,7 +3,7 @@
 <script>
 
 $( function() {
-  $( "#tgl_surat" ).datepicker();
+  $( "#tgl_surat" ).datepicker({ dateFormat: "yy-mm-dd"});
 } );
 
 </script>
@@ -20,18 +20,6 @@ $( function() {
 }
 </style>
 
-<?php
-$this->db->order_by('id_sm', 'DESC');
-$this->db->limit(1);
-$cek_ns = $this->db->get('tbl_sm');
-if ($cek_ns->num_rows() == 0) {
-  $no_surat       = "SKm/001";
-}else{
-  $noUrut 	 			= substr($cek_ns->row()->no_surat, 4, 7);
-  $noUrut++;
-  $no_surat				= "SKm/".sprintf("%03s", $noUrut);
-}
-?>
 <!-- Main content -->
 <div class="content-wrapper">
   <!-- Content area -->
@@ -73,13 +61,12 @@ if ($cek_ns->num_rows() == 0) {
                       </div>
                     </div> -->
 
-                    <div class="form-group">
+                  <div class="form-group">
                       <label class="control-label col-lg-3">No. Surat</label>
-                      <div class="col-lg-5">
-    												<input type="text" name="no_asalx" id="no_asalx" class="form-control" placeholder="" value="<?php echo $no_surat; ?>" required readonly>
-                            <input type="hidden" name="no_asal" id="no_asal" class="form-control" placeholder="" value="<?php echo $no_surat; ?>" required>
+                      <div class="col-lg-9">
+    												<input type="text" name="no_surat" id="no_surat" class="form-control" placeholder="">
     									</div>
-                      </div>
+                    </div>
                    
                     <div class="form-group">
                       <label class="control-label col-lg-3">Asal Surat</label>
@@ -104,7 +91,7 @@ if ($cek_ns->num_rows() == 0) {
                      <div class="col-lg-4">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                          <input type="text" name="tgl_surat" class="form-control daterange-single" id="tgl_surat" value="<?php echo date('d-m-Y'); ?>" maxlength="10" required placeholder="Masukkan Tanggal">
+                          <input type="text" name="tgl_surat" class="form-control daterange-single" id="tgl_surat" value="<?php echo date('Y-m-d'); ?>" maxlength="10" required placeholder="Masukkan Tanggal">
                         </div>
                       </div>
                     </div>
@@ -129,7 +116,7 @@ if ($cek_ns->num_rows() == 0) {
 
                     <hr>
                     
-                    <a href="users/sm" class="btn btn-default"><< Kembali</a>
+                    <a href="users/get_sm" class="btn btn-default"><< Kembali</a>
                     <button type="submit" class="btn btn-primary" style="float:right;">Kirim</button>
                 </form>
 

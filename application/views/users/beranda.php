@@ -49,7 +49,12 @@
                   Surat Masuk
                 </div>
 
-                <a href="users/sm" style="color:#f1f1f1;text-align:center;">
+                <?php
+		                if ($user->row()->level == 'tu') { ?>
+										<a href="<?php if ($level == "tu") { echo 'users/sm';}?>" style="color:#f1f1f1;text-align:center;">
+										<?php
+										}?>
+                <!-- <a href="users/sm" style="color:#f1f1f1;text-align:center;"> -->
                 <div id="server-load" style="border:1px solid #222;padding:10px;background:#333;">
                     Selengkapnya <i class="icon-circle-right2"></i>
                 </div>
@@ -75,9 +80,15 @@
                   Surat Keluar
                 </div>
 
-                <a href="users/sk" style="color:#f1f1f1;text-align:center;">
+                <?php
+		                if ($user->row()->level == 'tu') { ?>
+										<a href="<?php if ($level == "tu") { echo 'users/sk';}?>" style="color:#f1f1f1;text-align:center;">
+										<?php
+										}?>
+                <!-- <a href="users/sk" style="color:#f1f1f1;text-align:center;"> -->
                 <div id="server-load" style="border:1px solid #222;padding:10px;background:#333;">
                     Selengkapnya <i class="icon-circle-right2"></i>
+                </div>
                 </div>
                 </a>
               </div>

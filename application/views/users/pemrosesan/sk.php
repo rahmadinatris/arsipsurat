@@ -81,7 +81,7 @@
            <div class="col-6">Tanggal Surat    :</div>
          <div class="col-6"><?php echo $baris->tgl_surat; ?></div>
            <div class="col-6">File Surat    :</div>
-         <div class="col-6"><a href="/uploads/suratmasuk/<?php echo $baris->file_surat; ?>"><?php echo $baris->file_surat; ?></a></div>
+         <div class="col-6"><a href="<?= base_url('/uploads/suratkeluar/').$baris->file_surat; ?>"><?php echo $baris->file_surat; ?></a></div>
            <div class="col-6">Keterangan    :</div>
          <div class="col-6"><?php echo $baris->keterangan; ?></div>
        </div>

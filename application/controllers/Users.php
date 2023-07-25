@@ -12,7 +12,7 @@ class Users extends CI_Controller {
 		}else{
 			$data['user']   	 = $this->Mcrud->get_users_by_un($ceks);
 			$data['users']  	 = $this->Mcrud->get_users();
-			$data['judul_web'] = "Beranda | Sistem Manajemen Surat RA PERISAI BANGSA";
+			$data['judul_web'] = "Beranda | Aplikasi Surat Menyurat";
 
 			$this->load->view('users/header', $data);
 			$this->load->view('users/beranda', $data);
@@ -29,7 +29,7 @@ class Users extends CI_Controller {
 		}else{
 			$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
 			$data['level_users']  = $this->Mcrud->get_level_users();
-			$data['judul_web'] 		= "Profile | Sistem Manajemen Surat RA PERISAI BANGSA";
+			$data['judul_web'] 		= "Profile | Aplikasi Surat Menyurat";
 
 					$this->load->view('users/header', $data);
 					$this->load->view('users/profile', $data);
@@ -119,21 +119,21 @@ class Users extends CI_Controller {
 				if ($aksi == 't') {
 					$p = "pengguna_tambah";
 
-					$data['judul_web'] 	  = "Tambah Pengguna | Sistem Manajemen Surat RA PERISAI BANGSA";
+					$data['judul_web'] 	  = "Tambah Pengguna | Aplikasi Surat Menyurat";
 				}elseif ($aksi == 'd') {
 					$p = "pengguna_detail";
 
 					$data['query'] = $this->db->get_where("tbl_user", "id_user = '$id'")->row();
-					$data['judul_web'] 	  = "Detail Pengguna | Sistem Manajemen Surat RA PERISAI BANGSA";
+					$data['judul_web'] 	  = "Detail Pengguna | Aplikasi Surat Menyurat";
 				}elseif ($aksi == 'e') {
 					$p = "pengguna_edit";
 
 					$data['query'] = $this->db->get_where("tbl_user", "id_user = '$id'")->row();
-					$data['judul_web'] 	  = "Edit Pengguna | Sistem Manajemen Surat RA PERISAI BANGSA";
+					$data['judul_web'] 	  = "Edit Pengguna | Aplikasi Surat Menyurat";
 				}elseif ($aksi == 'h') {
 
 					$data['query'] = $this->db->get_where("tbl_user", "id_user = '$id'")->row();
-					$data['judul_web'] 	  = "Hapus Pengguna | Sistem Manajemen Surat RA PERISAI BANGSA";
+					$data['judul_web'] 	  = "Hapus Pengguna | Aplikasi Surat Menyurat";
 
 					if ($ceks == $data['query']->username) {
 						$this->session->set_flashdata('msg',
@@ -161,7 +161,7 @@ class Users extends CI_Controller {
 				}else{
 					$p = "pengguna";
 
-					$data['judul_web'] 	  = "Pengguna | Sistem Manajemen Surat RA PERISAI BANGSA";
+					$data['judul_web'] 	  = "Pengguna | Aplikasi Surat Menyurat";
 				}
 
 					$this->load->view('users/header', $data);
@@ -264,17 +264,6 @@ class Users extends CI_Controller {
 		}
 	}
 public function tambahsm() {
-	
-	$this->db->order_by('id_sm', 'DESC');
-$this->db->limit(1);
-$cek_ns = $this->db->get('tbl_sm');
-if ($cek_ns->num_rows() == 0) {
-  $no_surat       = "SKm/001";
-}else{
-  $noUrut 	 			= substr($cek_ns->row()->no_surat, 4, 7);
-  $noUrut++;
-  $no_surat				= "SKm/".sprintf("%03s", $noUrut);
-}
 
 			/*upload file MATERI*/
 					$config_file['upload_path']          = FCPATH.'/uploads/suratmasuk';
@@ -289,19 +278,21 @@ if ($cek_ns->num_rows() == 0) {
                     }
                     else
                     {
-                        $upload_data = $this->upload->data();
+                        $upload_data 		= $this->upload->data();
 
-							$asal_surat  = htmlentities(strip_tags($this->input->post('asal_surat')));
-	$perihal   	 	= htmlentities(strip_tags($this->input->post('perihal')));
-	$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
-	$tgl_surat   	 	= htmlentities(strip_tags($this->input->post('tgl_surat')));
-	$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
+						$no_surat   	 	= htmlentities(strip_tags($this->input->post('no_surat')));
+						$asal_surat  		= htmlentities(strip_tags($this->input->post('asal_surat')));
+						$perihal   	 		= htmlentities(strip_tags($this->input->post('perihal')));
+						$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
+						$tgl_surat   	 	= htmlentities(strip_tags($this->input->post('tgl_surat')));
+						$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
 
 							$data2 = array(
 										'no_surat'			 => $no_surat,
 										'asal_surat'			 => $asal_surat,
 										'perihal'			 => $perihal,
 										'klasifikasi'			 => $klasifikasi,
+										'tgl_surat'			 => $this->input->post('tgl_surat'),
 										'file_surat'			=> $upload_data['file_name'],
 										'keterangan'				 => $keterangan
 									);
@@ -318,7 +309,7 @@ public function sm()
 										 $ceks 	 = $this->session->userdata('surat_menyurat@Proyek-2017');
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-										 $data['judul_web'] 	  = "Surat Masuk | Sistem Manajemen Surat RA PERISAI BANGSA";
+										 $data['judul_web'] 	  = "Surat Masuk | Aplikasi Surat Menyurat";
 										 $this->load->view('users/header', $data);
 					$this->load->view("users/pemrosesan/sm_tambah");
 					$this->load->view('users/footer');
@@ -331,7 +322,7 @@ public function editsm($id)
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-		$data['judul_web'] 	  = "Edit Surat Masuk | Sistem Manajemen Surat RA PERISAI BANGSA";
+		$data['judul_web'] 	  = "Edit Surat Masuk | Aplikasi Surat Menyurat";
 		$data['query'] = $this->db->get_where("tbl_sm", ['id_sm' => $id])->result();
 
 					$this->load->view('users/header', $data);
@@ -361,7 +352,7 @@ public function editsmm() {
 							$save3 =$this->db->update('tbl_sm');
 					
                     }
-
+					$no_surat   	 	= htmlentities(strip_tags($this->input->post('no_surat')));
 					$asal_surat  = htmlentities(strip_tags($this->input->post('asal_surat')));
 					$perihal   	 	= htmlentities(strip_tags($this->input->post('perihal')));
 					$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
@@ -369,10 +360,13 @@ public function editsmm() {
 					$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
 
 							$data2 = array(
+										'no_surat'			 => $no_surat,
 										'asal_surat'			 => $asal_surat,
 										'perihal'			 => $perihal,
 										'klasifikasi'			 => $klasifikasi,
-										'keterangan'				 => $keterangan
+										'tgl_surat'			 => $this->input->post('tgl_surat'),
+										'file_surat'			=> $upload_data['file_name'],
+										'keterangan'				 => $keterangan	
 									);
 
 									$this->db->set($data2);
@@ -387,7 +381,7 @@ public function get_sm()
 	$ceks 	 = $this->session->userdata('surat_menyurat@Proyek-2017');
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-										 $data['judul_web'] 	  = "Surat Masuk | Sistem Manajemen Surat RA PERISAI BANGSA";
+										 $data['judul_web'] 	  = "Surat Masuk | Aplikasi Surat Menyurat";
 										 $this->db->order_by('tbl_sm.id_sm', 'DESC');
 			$data['sm'] 		  = $this->db->get("tbl_sm");
 			$data['level_users']  = $this->Mcrud->get_level_users();
@@ -403,17 +397,6 @@ public function deletesm($id) {
 
 // Surat Keluar
 public function tambahsk() {
-	
-	$this->db->order_by('id_sk', 'DESC');
-$this->db->limit(1);
-$cek_ns = $this->db->get('tbl_sk');
-if ($cek_ns->num_rows() == 0) {
-  $no_surat       = "SKm/001";
-}else{
-  $noUrut 	 			= substr($cek_ns->row()->no_surat, 4, 7);
-  $noUrut++;
-  $no_surat				= "SKm/".sprintf("%03s", $noUrut);
-}
 
 			/*upload file MATERI*/
 					$config_file['upload_path']          = FCPATH.'/uploads/suratkeluar';
@@ -430,17 +413,19 @@ if ($cek_ns->num_rows() == 0) {
                     {
                         $upload_data = $this->upload->data();
 
-							$tujuan_surat  = htmlentities(strip_tags($this->input->post('tujuan_surat')));
-	$perihal   	 	= htmlentities(strip_tags($this->input->post('perihal')));
-	$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
-	$tgl_surat   	 	= htmlentities(strip_tags($this->input->post('tgl_surat')));
-	$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
+						$no_surat   	 	= htmlentities(strip_tags($this->input->post('no_surat')));
+						$tujuan_surat  		= htmlentities(strip_tags($this->input->post('tujuan_surat')));
+						$perihal   	 		= htmlentities(strip_tags($this->input->post('perihal')));
+						$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
+						$tgl_surat   	 	= htmlentities(strip_tags($this->input->post('tgl_surat')));
+						$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
 
 							$data2 = array(
 										'no_surat'			 => $no_surat,
 										'tujuan_surat'			 => $tujuan_surat,
 										'perihal'			 => $perihal,
 										'klasifikasi'			 => $klasifikasi,
+										'tgl_surat'			 => $this->input->post('tgl_surat'),
 										'file_surat'			=> $upload_data['file_name'],
 										'keterangan'				 => $keterangan
 									);
@@ -455,7 +440,7 @@ public function sk()
 										 $ceks 	 = $this->session->userdata('surat_menyurat@Proyek-2017');
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-										 $data['judul_web'] 	  = "Surat Keluar | Sistem Manajemen Surat RA PERISAI BANGSA";
+										 $data['judul_web'] 	  = "Surat  | Aplikasi Surat Menyurat";
 										 $this->load->view('users/header', $data);
 					$this->load->view("users/pemrosesan/sk_tambah");
 					$this->load->view('users/footer');
@@ -468,7 +453,7 @@ public function editsk($id)
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-		$data['judul_web'] 	  = "Edit Surat Keluar | Sistem Manajemen Surat RA PERISAI BANGSA";
+		$data['judul_web'] 	  = "Edit Surat Masuk | Aplikasi Surat Menyurat";
 		$data['query'] = $this->db->get_where("tbl_sk", ['id_sk' => $id])->result();
 
 					$this->load->view('users/header', $data);
@@ -498,7 +483,7 @@ public function editskk() {
 							$save3 =$this->db->update('tbl_sk');
 					
                     }
-
+					$no_surat  = htmlentities(strip_tags($this->input->post('no_surat')));
 					$tujuan_surat  = htmlentities(strip_tags($this->input->post('tujuan_surat')));
 					$perihal   	 	= htmlentities(strip_tags($this->input->post('perihal')));
 					$klasifikasi   	 	= htmlentities(strip_tags($this->input->post('klasifikasi')));
@@ -506,9 +491,12 @@ public function editskk() {
 					$keterangan   	 	= htmlentities(strip_tags($this->input->post('keterangan')));
 
 							$data2 = array(
+										'no_surat'			 => $no_surat,
 										'tujuan_surat'			 => $tujuan_surat,
 										'perihal'			 => $perihal,
 										'klasifikasi'			 => $klasifikasi,
+										'tgl_surat'			 => $this->input->post('tgl_surat'),
+										'file_surat'			=> $upload_data['file_name'],
 										'keterangan'				 => $keterangan
 									);
 
@@ -524,7 +512,7 @@ public function get_sk()
 	$ceks 	 = $this->session->userdata('surat_menyurat@Proyek-2017');
 		$id_user = $this->session->userdata('id_user@Proyek-2017');
 		$data['user']  			  = $this->Mcrud->get_users_by_un($ceks);
-										 $data['judul_web'] 	  = "Surat Keluar | Sistem Manajemen Surat RA PERISAI BANGSA";
+										 $data['judul_web'] 	  = "Surat Masuk | Aplikasi Surat Menyurat";
 										 $this->db->order_by('tbl_sk.id_sk', 'DESC');
 			$data['sk'] 		  = $this->db->get("tbl_sk");
 										 $this->load->view('users/header', $data);
@@ -545,7 +533,7 @@ public function deletesk($id) {
 			redirect('web/login');
 		}else{
 			$data['user']  			    = $this->Mcrud->get_users_by_un($ceks);
-			$data['judul_web']			= "Laporan Surat Keluar | Sistem Manajemen Surat RA PERISAI BANGSA";
+			$data['judul_web']			= "Laporan Surat Keluar | Aplikasi Surat Menyurat";
 
 					$this->load->view('users/header', $data);
 					$this->load->view('users/laporan/lap_sk', $data);
@@ -572,7 +560,7 @@ public function deletesk($id) {
 								$data['sql'] = $this->db->query("SELECT * FROM tbl_sk WHERE (tgl_surat BETWEEN '$tgl1' AND '$tgl2') ORDER BY id_sk DESC");
 
 								$data['user']  		 = $this->Mcrud->get_users_by_un($ceks);
-								$data['judul_web'] = "Data Laporan Surat Keluar | Sistem Manajemen Surat RA PERISAI BANGSA";
+								$data['judul_web'] = "Data Laporan Surat Keluar | Aplikasi Surat Menyurat";
 								$this->load->view('users/header', $data);
 								$this->load->view('users/laporan/data_sk', $data);
 								$this->load->view('users/footer', $data);
@@ -603,7 +591,7 @@ public function deletesk($id) {
 			redirect('web/login');
 		}else{
 			$data['user']  			    = $this->Mcrud->get_users_by_un($ceks);
-			$data['judul_web']			= "Laporan Surat Masuk | Sistem Manajemen Surat RA PERISAI BANGSA";
+			$data['judul_web']			= "Laporan Surat Masuk | Aplikasi Surat Menyurat";
 
 					$this->load->view('users/header', $data);
 					$this->load->view('users/laporan/lap_sm', $data);
@@ -629,7 +617,7 @@ public function deletesk($id) {
 								$data['sql'] = $this->db->query("SELECT * FROM tbl_sm WHERE (tgl_surat BETWEEN '$tgl1' AND '$tgl2') ORDER BY id_sm DESC");
 
 								$data['user']  		 = $this->Mcrud->get_users_by_un($ceks);
-								$data['judul_web'] = "Data Laporan Surat Masuk | Sistem Manajemen Surat RA PERISAI BANGSA";
+								$data['judul_web'] = "Data Laporan Surat Masuk | Aplikasi Surat Menyurat";
 								$this->load->view('users/header', $data);
 								$this->load->view('users/laporan/data_sm', $data);
 								$this->load->view('users/footer', $data);

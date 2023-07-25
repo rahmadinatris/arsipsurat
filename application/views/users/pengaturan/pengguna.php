@@ -31,7 +31,7 @@
               <th>Nama Lengkap</th>
               <th>Email</th>
               <th>Level</th>
-              <th>Status</th>
+              
               <th>Tgl Daftar</th>
               <th>Login Terakhir</th>
               <th class="text-center" width="170"></th>
@@ -48,15 +48,7 @@
                   <td><?php echo $baris->nama_lengkap; ?></td>
                   <td><?php echo $baris->email; ?></td>
                   <td><?php if($baris->level == "tu"){echo "tu";}else{echo ucwords($baris->level);} ?></td>
-                  <td><?php
-                      if($baris->status == "" or $baris->status == NULL){ ?>
-                        <button type="button" class="btn btn-danger btn-xs"><i class="icon-cross3"></i></button>
-                      <?php
-                      }else{ ?>
-                        <button type="button" class="btn btn-success btn-xs"><i class="icon-checkmark4"></i></button>
-                      <?php
-                      } ?>
-                  </td>
+                  
                   <td><?php if($baris->tgl_daftar == ""){ echo "-";}else{echo $baris->tgl_daftar;} ?></td>
                   <td><?php if($baris->terakhir_login == ""){ echo "-";}else{echo $baris->terakhir_login;} ?></td>
                   <td>
